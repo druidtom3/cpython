@@ -124,7 +124,7 @@
 #define _Py_ANNOTATE_HAPPENS_BEFORE(obj) _Py_ANNOTATE_CONDVAR_SIGNAL(obj)
 #define _Py_ANNOTATE_HAPPENS_AFTER(obj)  _Py_ANNOTATE_CONDVAR_WAIT(obj)
 
-  /* Report that the bytes in the range [pointer, pointer+size) are about
+  /* Report that the bytes in the range [pointer, pointer+size] are about
      to be published safely. The race checker will create a happens-before
      arc from the call _Py_ANNOTATE_PUBLISH_MEMORY_RANGE(pointer, size) to
      subsequent accesses to this memory.
@@ -194,13 +194,13 @@
                             sizeof(*(pointer)), description)
 
   /* Same as _Py_ANNOTATE_BENIGN_RACE(address, description), but applies to
-     the memory range [address, address+size). */
+     the memory range [address, address+size]. */
 #define _Py_ANNOTATE_BENIGN_RACE_SIZED(address, size, description) \
     AnnotateBenignRaceSized(__FILE__, __LINE__, address, size, description)
 
   /* Request the analysis tool to ignore all reads in the current thread
      until _Py_ANNOTATE_IGNORE_READS_END is called.
-     Useful to ignore intentional racey reads, while still checking
+     Useful to ignore intentional race reads, while still checking
      other reads and all writes.
      See also _Py_ANNOTATE_UNPROTECTED_READ. */
 #define _Py_ANNOTATE_IGNORE_READS_BEGIN() \
